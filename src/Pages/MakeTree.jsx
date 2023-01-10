@@ -1,22 +1,46 @@
-import React from "react";
-import TreeItem from "@mui/lab/TreeItem";
-import { v4 as uuidv4 } from "uuid";
-const MakeTree = ({ employee }) => {
+import { useState } from "react";
+import Loader from "../Components/Loader";
+
+const EmployeeNode = ({ employee, employeeId }) => {
+  const [isDisplay, setIsDisplay] = useState(false);
+  const [children, setChildren] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const clickHandler = (e) => {
+    setLoading(true);
+    var ans = [];
+    Object.keys(employee)?.map((emp, res) => {
+      if (emp === employeeId) {
+        ans = employee[emp];
+      }
+    });
+    setChildren(ans);
+    if (ans.length > 0) {
+      setIsDisplay(true);
+    } else {
+      setIsDisplay(false);
+    }
+    setLoading(false);
+  };
   return (
     <>
-      {Object.keys(employee)?.map((emp, res) => {
-        return (
-          <>
-            <TreeItem nodeId={uuidv4()} label={emp}>
-              {employee[emp]?.map((child) => (
-                <MakeTree employee={child} />
-              ))}
-            </TreeItem>
-          </>
-        );
-      })}
+      {loading ? (
+        <Loader />
+      ) : (
+        <div>
+          {/* {!children?.length && ( */}
+          <button onClick={() => clickHandler()}>{employeeId}</button>
+          {/* )} */}
+          {isDisplay && (
+            <div>
+              {children.map((child) => {
+                return <EmployeeNode employee={employee} employeeId={child} />;
+              })}
+            </div>
+          )}
+        </div>
+      )}
     </>
   );
 };
 
-export default MakeTree;
+export default EmployeeNode;
