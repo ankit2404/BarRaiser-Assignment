@@ -55,13 +55,33 @@ const Home = () => {
     setPage(0);
   };
 
-  const handleChange = (event) => {
-    setSearchText(event.target.value);
+  // const handleChange = (event) => {
+  //   setSearchText(event.target.value);
+  //   const prod = orignalData.filter((emp) =>
+  //     emp.first_name?.toLowerCase().includes(event.target.value.toLowerCase())
+  //   );
+  //   setEmployeData(prod);
+  // };
+  const debounce = (filterData, d) => {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        filterData(...args);
+      }, d);
+    };
+  };
+  const filterData = (val) => {
     const prod = orignalData.filter((emp) =>
-      emp.first_name?.toLowerCase().includes(event.target.value.toLowerCase())
+      emp.first_name?.toLowerCase().includes(val.toLowerCase())
     );
     setEmployeData(prod);
   };
+  const handleChange = (e) => {
+    setSearchText(e.target.value);
+    debounce(filterData(e.target.value), 1000);
+  };
+
   const dropdown = (event) => {
     setSalary(event.target.value);
     const listData = [...orignalData];

@@ -27,11 +27,12 @@ const EmployeeNode = ({ employee, employeeId }) => {
         <Loader />
       ) : (
         <div>
-          {/* {!children?.length && ( */}
-          <button onClick={() => clickHandler()}>{employeeId}</button>
-          {/* )} */}
+          <button onClick={() => clickHandler()} style={{ marginLeft: "25px" }}>
+            {employeeId}
+          </button>
+
           {isDisplay && (
-            <div>
+            <div style={{ paddingLeft: "25px" }}>
               {children.map((child) => {
                 return <EmployeeNode employee={employee} employeeId={child} />;
               })}

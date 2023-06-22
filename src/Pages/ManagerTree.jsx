@@ -16,7 +16,7 @@ const ManagerTree = () => {
       );
       const arr = data.data;
       const ans = new Map();
-      const allManager = [];
+      // const allManager = [];
       arr.map((row) => {
         let managerId = `${row.manager_id}`;
         if (managerId !== "") {
@@ -26,11 +26,9 @@ const ManagerTree = () => {
             let num = ans[managerId];
             num.push(row.id);
           }
-        } else {
-          allManager.push(row.id);
         }
       });
-      // console.log(ans);
+      console.log(ans);
       setEmployeeTree(ans);
       setLoading(false);
     };
