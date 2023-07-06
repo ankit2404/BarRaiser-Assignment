@@ -9,8 +9,8 @@ import ManagerTree from "./Pages/ManagerTree";
 const App = () => {
   const darkTheme = createTheme({
     palette: {
-      mode: "dark",
-      // mode: "light",
+      // mode: "dark",
+      mode: "light",
     },
   });
   return (
